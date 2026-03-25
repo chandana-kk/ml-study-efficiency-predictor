@@ -1,34 +1,39 @@
-# Smart Study Efficiency Predictor
+# Study Efficiency Predictor using Machine Learning
 
-from sklearn.linear_model import LinearRegression
 import numpy as np
+from sklearn.linear_model import LinearRegression
 
-print("Smart Study Efficiency Predictor\n")
+print("Study Efficiency Predictor\n")
 
-# dataset
-# [study_hours, phone_usage_hours, sleep_hours]
+# Dataset
+# [study_hours, sleep_hours, distraction_hours]
 
 X = np.array([
-[2,5,5],
-[4,3,6],
-[6,2,7],
-[8,1,7],
-[1,6,5],
-[7,2,8],
-[5,3,6]
+    [2,8,3],
+    [3,7,2],
+    [4,6,3],
+    [5,6,2],
+    [6,5,1],
+    [7,5,2],
+    [8,4,1]
 ])
 
-# efficiency score (0–100)
-y = np.array([40,55,75,90,30,85,70])
+# Efficiency score out of 100
+y = np.array([50,55,60,65,75,80,90])
 
+# Create model
 model = LinearRegression()
 
-model.fit(X,y)
+# Train model
+model.fit(X, y)
 
-study = float(input("Enter study hours per day: "))
-phone = float(input("Enter phone usage hours per day: "))
-sleep = float(input("Enter sleep hours per day: "))
+# User input
+study = float(input("Study hours per day: "))
+sleep = float(input("Sleep hours per day: "))
+distraction = float(input("Distraction hours per day: "))
 
-prediction = model.predict([[study,phone,sleep]])
+user_data = np.array([[study, sleep, distraction]])
 
-print("\nPredicted Study Efficiency Score:", round(prediction[0],2), "/100")
+prediction = model.predict(user_data)
+
+print("\nPredicted Study Efficiency Score:", round(prediction[0],2))
